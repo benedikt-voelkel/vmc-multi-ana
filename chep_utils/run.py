@@ -1,11 +1,12 @@
+import os
 import subprocess
 from chep_utils.logger import get_logger
-from chep_utils.io import print_dict, yaml_from_dict
+from chep_utils.io import print_dict, yaml_from_dict, make_dir
 
 def make_scenario_suffix(*args):
     return "_".join(args)
 
-def run_test():
+def run_sim_test(config):
 
     logger = get_logger()
     logger.info("Run in test mode")
@@ -17,6 +18,7 @@ def run_test():
     exec_list = [config["exec_path"], "--engine1", "G3", "--n-events", "5", "--macros",
                  config["macros_path"], "--pdg", "11", "--energy", "0.050"]
     succ = -1
+    log_file = os.path.join(output, "test.log")
     with open(log_file, "w") as f:
         p = subprocess.Popen(exec_list, stdout=f, stderr=f)
         succ = p.wait()
@@ -24,7 +26,7 @@ def run_test():
         logger.info("SUCCESS code: %i", succ)
 
 
-def run_all(engine1, engine2=None, **kwargs):
+def run_sim_all(config):
 
     logger = get_logger()
     logger.info("Start full run with parameters")
@@ -60,8 +62,8 @@ def run_all(engine1, engine2=None, **kwargs):
                 scenario_index += 1
                 trial_index = -1
                 yaml_dict = {"parameters": {"n_events": nev, "n_layers": nl, "n_primaries": npr,
-                                            "engine1": engine1, "engine2": engine2, "pdg": config["pdg"],
-                                            "energy": config["energy"]}}
+                                            "engine1": config["engine1"], "engine2": config["engine2"],
+                                            "pdg": config["pdg"], "energy": config["energy"]}}
                 trials = []
                 logger.info("Start scenario with")
                 print_dict(yaml_dict)
@@ -73,7 +75,7 @@ def run_all(engine1, engine2=None, **kwargs):
                                                  "--n-primaries", str(npr), "--macros", config["macros_path"],
                                                  "--pdg", str(config["pdg"]), "--energy", str(config["energy"])]
                     succ = -1
-                    log_file = os.path.join(config["output_path"], f"trial_{scenario_index}_{trial_index}_{suffix}.log")
+                    log_file = os.path.join(config["output_path"], f"trial_{scenario_index}_{trial_index}.log")
                     with open(log_file, "w") as f:
                         p = subprocess.Popen(exec_list_run, stdout=f, stderr=f)
                         succ = p.wait()
@@ -96,11 +98,11 @@ def run_all(engine1, engine2=None, **kwargs):
                 scenario_yaml = os.path.join(config["output_path"], scenario_yaml)
                 yaml_from_dict(yaml_dict, scenario_yaml)
 
-def run(config):
+def run_sim(config):
 
     if config["test"]:
-        run_test(config)
+        run_sim_test(config)
         return
 
-    run_all(config)
+    run_sim_all(config)
 

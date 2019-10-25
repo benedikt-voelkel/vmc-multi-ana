@@ -9,8 +9,10 @@ exec_path: "./"
 macros_path: "./"
 pdg: 11
 energy: 0.05
-fix_lengths: -1
+fix_length: -1
 min_layer_size: 0.001
+gap_size: 0.5
+abso_size: 1.5
 
 # Only configurable via config YAML
 n_events:
