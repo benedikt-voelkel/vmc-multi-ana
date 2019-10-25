@@ -1,0 +1,3 @@
+# Analysis tools for detector simulation
+
+To be filled with meaningful explanation...

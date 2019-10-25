@@ -1,0 +1,42 @@
+# Can be overwritten on the fly
+trials: 10
+mode: "multi"
+engine1: "G3"
+engine2: "G4"
+test: False
+output_path: "./output"
+exec_path: "./"
+macros_path: "./"
+pdg: 11
+energy: 0.05
+fix_lengths: -1
+min_layer_size: 0.001
+
+# Only configurable via config YAML
+n_events:
+    - 10
+    - 20
+    - 30
+    - 40
+    - 50
+    - 100
+    - 200
+    - 300
+    - 400
+    - 500
+    - 100
+    - 10000
+n_layers:
+    - 10
+    - 20
+    - 30
+    - 40
+    - 50
+n_primaries:
+    - 10
+    - 20
+    - 30
+    - 40
+    - 50
+    - 100
+

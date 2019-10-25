@@ -1,0 +1,49 @@
+# If python build in source tree
+build/*
+dist/*
+*.egg-info
+**/__pycache__
+
+# Python compiled
+*.pyc
+*.pyd
+*.pyo
+
+# object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# executables
+*.exe
+*.out
+*.app
+
+#input and output data
+*.root
+*.yaml
+*.log
+*.dat
+*.txt
+
+# editor backups/cached
+*.swp
+*~
+*.vscode
+**/.mypy_cache
+setup.cfg
+
+# macOS
+.DS_Store
